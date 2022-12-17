@@ -25,9 +25,9 @@ func TestCancelSelf(t *testing.T) {
 	//
 	blocking.Add(1)
 	go func() {
+		defer blocking.Done()
 		for {
 			if IsDone(ctx) {
-				blocking.Done()
 				return
 			}
 			<-time.After(10 * time.Millisecond)
@@ -53,9 +53,9 @@ func TestInterrupt(t *testing.T) {
 	//
 	blocking.Add(1)
 	go func() {
+		defer blocking.Done()
 		for {
 			if IsDone(ctx) {
-				blocking.Done()
 				return
 			}
 		}
